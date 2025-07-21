@@ -14,16 +14,146 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      mission_registrations: {
+        Row: {
+          id: string
+          mission_id: string
+          registered_at: string
+          status: Database["public"]["Enums"]["registration_status"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          mission_id: string
+          registered_at?: string
+          status?: Database["public"]["Enums"]["registration_status"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          mission_id?: string
+          registered_at?: string
+          status?: Database["public"]["Enums"]["registration_status"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mission_registrations_mission_id_fkey"
+            columns: ["mission_id"]
+            isOneToOne: false
+            referencedRelation: "missions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      missions: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          end_date_time: string
+          id: string
+          location_address: string
+          location_lat: number | null
+          location_lng: number | null
+          start_date_time: string
+          status: Database["public"]["Enums"]["mission_status"]
+          title: string
+          updated_at: string
+          workers_needed: number
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          end_date_time: string
+          id?: string
+          location_address: string
+          location_lat?: number | null
+          location_lng?: number | null
+          start_date_time: string
+          status?: Database["public"]["Enums"]["mission_status"]
+          title: string
+          updated_at?: string
+          workers_needed?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          end_date_time?: string
+          id?: string
+          location_address?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          start_date_time?: string
+          status?: Database["public"]["Enums"]["mission_status"]
+          title?: string
+          updated_at?: string
+          workers_needed?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          availability: Database["public"]["Enums"]["availability"] | null
+          bank_account_number: string | null
+          created_at: string
+          date_of_birth: string | null
+          first_name: string
+          id: string
+          last_name: string
+          phone_number: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          availability?: Database["public"]["Enums"]["availability"] | null
+          bank_account_number?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          first_name: string
+          id?: string
+          last_name: string
+          phone_number?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          availability?: Database["public"]["Enums"]["availability"] | null
+          bank_account_number?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          first_name?: string
+          id?: string
+          last_name?: string
+          phone_number?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      availability: "full_time" | "part_time" | "weekends_only" | "flexible"
+      mission_status: "draft" | "active" | "completed" | "cancelled"
+      registration_status: "pending" | "approved" | "rejected"
+      user_role: "admin" | "employee"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +280,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      availability: ["full_time", "part_time", "weekends_only", "flexible"],
+      mission_status: ["draft", "active", "completed", "cancelled"],
+      registration_status: ["pending", "approved", "rejected"],
+      user_role: ["admin", "employee"],
+    },
   },
 } as const
