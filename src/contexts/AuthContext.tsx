@@ -115,6 +115,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             first_name: userData.first_name || '',
             last_name: userData.last_name || '',
             role: userData.role || 'employee',
+            phone_number: userData.phone_number || '',
+            address: userData.address || '',
+            date_of_birth: userData.date_of_birth || '',
+            bank_account_number: userData.bank_account_number || '',
+            availability: userData.availability || 'flexible',
           }
         }
       });
