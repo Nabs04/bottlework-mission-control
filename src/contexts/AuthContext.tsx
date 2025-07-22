@@ -124,6 +124,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       });
 
+      if (!error) {
+        // Redirect to sign-in after successful registration
+        setTimeout(() => {
+          window.location.href = '/auth?tab=signin';
+        }, 100);
+      }
+
       return { error };
     } catch (error) {
       return { error };
